@@ -26,8 +26,11 @@ def initialise():
     gluPerspective(60, (screen_width / screen_height), 0.1, 500.0)
 
     # modelview
-    glMatrixMode(GL_MODELVIEW)
+    glMatrixMode(GL_MODELVIEW)  # this switches open GL to model view mode. Any operations after this line are applied
+    # to model view matrix
     glLoadIdentity()
+    # glTranslated(0, 0, -2)  # camera is sitting at origin looking down neg z-axis (neg z goes into screen) - need to
+    # push model back to make it visible. Default: pos x is to the right and pos y is up
     glViewport(0, 0, screen.get_width(), screen.get_height())
     glEnable(GL_DEPTH_TEST)
 
@@ -35,7 +38,12 @@ def initialise():
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glPushMatrix()
+    glTranslated(0, 1, -5)
+    glRotated(45, 0, 1, 0)  # this rotates the object 45 degrees about the 0, 1, 0 vector (i.e. y-up or vector3.up)
+    glScalef(0.5, 0.5, 0.5)
     mesh.draw()
+    glLoadIdentity()  # this clears out the model view matrix so that the next mesh drawn is at the origin
+    mesh.draw()  # this mesh is at the origin/not effected by glTranslated, glRotated, or glScale
     glPopMatrix()
 
 
