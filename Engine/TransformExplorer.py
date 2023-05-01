@@ -14,7 +14,7 @@ drawing_color = (1, 1, 1, 1)
 screen = pygame.display.set_mode((screen_width, screen_height), DOUBLEBUF | OPENGL)
 pygame.display.set_caption('Transformations in Python')
 cube = Cube(GL_LINE_LOOP)
-mesh = LoadMesh("cube.obj", GL_LINE_LOOP)
+mesh = LoadMesh("teapot.obj", GL_LINE_LOOP)
 
 def initialise():
     glClearColor(background_color[0], background_color[1], background_color[2], background_color[3])
@@ -33,17 +33,16 @@ def initialise():
     # push model back to make it visible. Default: pos x is to the right and pos y is up
     glViewport(0, 0, screen.get_width(), screen.get_height())
     glEnable(GL_DEPTH_TEST)
+    gluLookAt(0, 10, 5, 0, 0, 0, 0, 1, 0)  # we change the camera transform in the model view. gluLookAt uses the
+    # following format (eye.x, eye.y, eye.z, look.x, look.y, look.z, up.x, up.y, up.z). 'eye' refers to the eye/camera
+    # location. 'look' refers to the point the camera is looking at (here we look at the origin where the teapot
+    # is). 'up' refers to the orientation of camera
 
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glPushMatrix()
-    glTranslated(0, 1, -5)
-    glRotated(45, 0, 1, 0)  # this rotates the object 45 degrees about the 0, 1, 0 vector (i.e. y-up or vector3.up)
-    glScalef(0.5, 0.5, 0.5)
     mesh.draw()
-    glLoadIdentity()  # this clears out the model view matrix so that the next mesh drawn is at the origin
-    mesh.draw()  # this mesh is at the origin/not effected by glTranslated, glRotated, or glScale
     glPopMatrix()
 
 
