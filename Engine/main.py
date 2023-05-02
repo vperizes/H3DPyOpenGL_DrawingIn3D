@@ -36,7 +36,7 @@ def camera_init():
     glLoadIdentity()
     glViewport(0, 0, screen.get_width(), screen.get_height())
     glEnable(GL_DEPTH_TEST)
-    camera.update_camera()
+    camera.update_camera(screen.get_width(), screen.get_height())
 
 
 def display():
@@ -49,10 +49,17 @@ def display():
 
 done = False
 initialise()
+pygame.event.set_grab(True)  # grabs hold of mouse. Not usable for other windows when app is running
+pygame.mouse.set_visible(False)  # mouse is no longer visible. Can't use it to shut window down --> program key press
+
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                pygame.event.set_grab(False)
+                pygame.mouse.set_visible(True)
     display()
     pygame.display.flip()
     pygame.time.wait(100)
