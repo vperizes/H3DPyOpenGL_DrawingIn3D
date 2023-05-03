@@ -14,7 +14,7 @@ class Camera:
         self.yaw = -90  # angle for yaw, rotates about y-axis
         self.pitch = 0  # angle for pitch, rotates about x-axis
 
-        # using move to move these angles -> need to record last pos of mouse and figure out updated mouse pos
+        # using mouse to move these angles -> need to record last pos of mouse and figure out updated mouse pos
         self.last_mouse = pygame.math.Vector2(0, 0)  # initial value for mouse position, stores last mouse pos
         self.mouse_sensitivityX = 0.1
         self.mouse_sensitivityY = 0.1
@@ -25,8 +25,9 @@ class Camera:
         self.pitch += pitch
         if self.pitch > 89.0:
             self.pitch = 89.0
+
         if self.pitch < -89.0:
-            self.pitch = -89.0
+            self.pitch = 89.0
         self.forward.x = cos(radians(self.yaw)) * cos(radians(self.pitch))
         self.forward.y = sin(radians(self.yaw))
         self.forward.z = sin(radians(self.yaw)) * cos(radians(self.pitch))
@@ -48,7 +49,7 @@ class Camera:
         self.last_mouse = pygame.mouse.get_pos()  # updates last_mouse
         # we use the mouse_change x pos for the yaw (rotate about y-axis) b/c the x pos of mouse acts as the moment arm
         # to allow rotation to happen. Same idea for using mouse_chamge.y for pitch
-        self.rotate_camera(mouse_change.x * self.mouse_sensitivityX, mouse_change.y * self.mouse_sensitivityY)
+        self.rotate_camera(-mouse_change.x * self.mouse_sensitivityX, mouse_change.y * self.mouse_sensitivityY)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
