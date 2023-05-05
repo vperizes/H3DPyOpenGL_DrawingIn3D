@@ -17,8 +17,10 @@ drawing_color = (1, 1, 1, 1)
 
 screen = pygame.display.set_mode((screen_width, screen_height), DOUBLEBUF | OPENGL)
 pygame.display.set_caption('OpenGL in Python')
-mesh = LoadMesh("cube.obj", GL_LINE_STRIP)
-cube = Cube(GL_LINE_LOOP)
+mesh = LoadMesh("teapot.obj", GL_LINE_STRIP)
+cube1 = Cube(GL_LINE_LOOP, pygame.Vector3(0.5, 0.5, 0.5))
+cube2 = Cube(GL_LINE_LOOP, pygame.Vector3(0.5, 1.5, 0.5))
+cube3 = Cube(GL_LINE_LOOP, pygame.Vector3(0.5, 2.5, 0.5))
 camera = Camera()
 
 def initialise():
@@ -85,10 +87,21 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     camera_init()
     draw_world_axes()
-    # glPushMatrix()
-    cube.draw()
-    # mesh.draw()
-    # glPopMatrix()
+    cube1.draw()
+    cube2.draw()
+    cube3.draw()
+
+
+# following code was used to explore simple translations
+    # glPushMatrix()  # tells openGL to remember the current stack of matrices
+    # glTranslated(0, 1, 0)
+    # cube.draw()
+    # glPopMatrix()  # anything between/inside push and pop matrix will not have an effect on things drawn later on
+    # glTranslated(0, -1, 0)  # if we did not want to use the push/pop matrix then we could translate in the opposite
+    # direction of the above translation then translate again to where we want to go
+    # glTranslatef(0.5, 1.5, 0.5)
+    # cube.draw()  # this cube is actually being translated by the sum of the two glTranslate commands that proceed it
+
 
 
 
