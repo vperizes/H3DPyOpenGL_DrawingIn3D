@@ -4,7 +4,7 @@ from Mesh import *
 
 # Load mesh inherits properties from mesh
 class LoadMesh(Mesh):
-    def __init__(self, filename, draw_type, position=pygame.Vector3(0, 0, 0)):
+    def __init__(self, filename, draw_type, position=pygame.Vector3(0, 0, 0)):  # passing a default position at origin
         self.filename = filename
         vertices, triangles = self.load_drawing()  # returning vertices & triangles from load_drawing then passing to super
         super().__init__(vertices, triangles, draw_type, position)

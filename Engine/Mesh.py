@@ -12,8 +12,9 @@ class Mesh:
         self.translation = translation
 
     # Method for drawing
-    def draw(self):
+    def draw(self, move_to=pygame.Vector3(0, 0, 0)):
         glPushMatrix()  # using push/pop to make sure translation does not affect anything else being drawn
+        glTranslatef(move_to.x, move_to.y, move_to.z)
         glTranslatef(self.translation.x, self.translation.y, self.translation.z)
         for t in range(0, len(self.triangles), 3):
             glBegin(self.draw_type)

@@ -18,9 +18,7 @@ drawing_color = (1, 1, 1, 1)
 screen = pygame.display.set_mode((screen_width, screen_height), DOUBLEBUF | OPENGL)
 pygame.display.set_caption('OpenGL in Python')
 mesh = LoadMesh("teapot.obj", GL_LINE_STRIP)
-cube1 = Cube(GL_LINE_LOOP, pygame.Vector3(0.5, 0.5, 0.5))
-cube2 = Cube(GL_LINE_LOOP, pygame.Vector3(0.5, 1.5, 0.5))
-cube3 = Cube(GL_LINE_LOOP, pygame.Vector3(0.5, 2.5, 0.5))
+cube = Cube(GL_LINE_LOOP)
 camera = Camera()
 
 def initialise():
@@ -87,9 +85,9 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     camera_init()
     draw_world_axes()
-    cube1.draw()
-    cube2.draw()
-    cube3.draw()
+    for x in range(10):  # nested loop creates a 10x10 plane of cubes
+        for z in range(10):
+            cube.draw(pygame.Vector3(x, 0.5, z))
 
 
 # following code was used to explore simple translations
