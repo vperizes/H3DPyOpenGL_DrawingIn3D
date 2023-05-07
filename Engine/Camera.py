@@ -11,7 +11,7 @@ class Camera:
         self.forward = pygame.math.Vector3(0, 0, 1)  # this is the direction that the camera is looking in. The base of
         # this vector is at eye
         self.look = self.eye + self.forward
-        self.yaw = -90  # angle for yaw, rotates about y-axis
+        self.yaw = 90  # angle for yaw, rotates about y-axis
         self.pitch = 0  # angle for pitch, rotates about x-axis
 
         # using mouse to move these angles -> need to record last pos of mouse and figure out updated mouse pos
